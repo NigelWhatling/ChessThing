@@ -2,6 +2,7 @@
 {
     using System;
     using Chess.Engine.AI;
+    using Chess.Engine.IO;
 
     public class ChessGame
     {
@@ -25,6 +26,8 @@
 
         public bool CurrentPlayerInCheck { get; private set; }
 
+        private ZobristKeyTable _keyTable = new ZobristKeyTable(14 * 64);
+
         public ChessGame()
         {
             this.Players = new ChessPlayer[2]
@@ -35,6 +38,8 @@
 
             this.Board = new ChessBoard(this);
             this.Reset();
+
+            this._keyTable.Save("keytable");
         }
 
         public void Reset() => this.Board.Reset();
